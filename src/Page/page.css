@@ -1,0 +1,219 @@
+body, html, .App {
+  overflow: visible !important;
+}
+
+.App {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 60px 0px;
+}
+
+.App h2 {
+  font: Inter;
+  font-weight: 600;
+  font-size: 32px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+.App form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+.App form label {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.App form label p {
+  font: Inter;
+  font-weight: 600;
+  font-size: 22px;
+
+}
+
+.App form label input,
+select {
+  font: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0 auto;
+  color: black;
+  border: 1px solid black;
+  width: 100%;
+  height: 44px;
+  padding: 0px 10px;
+
+
+}
+
+.creabun {
+  border-radius: 10px;
+  height: 44px;
+
+}
+
+.blogs-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.blog-box {
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 300px;
+  transition: transform 0.2s;
+}
+
+.blog-box:hover {
+  transform: scale(1.05);
+}
+
+.blog-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 16px;
+  color: white;
+}
+
+.blog-description {
+  font-size: 1rem;
+  margin: 0 16px 16px;
+  color: #555;
+}
+
+.images {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px;
+}
+
+.images img {
+  border-radius: 8px;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 16px 16px;
+}
+
+button {
+  background-color: #007bff;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.dfewrew {
+  background-color: #007bff;
+  /* color: ; */
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  /* transition: background-color 0.3s; */
+}
+
+.optons {
+  color: black ;
+}
+
+/* Tidy dropdown appearance */
+.ql-toolbar .ql-picker {
+  margin-right: 8px;
+}
+
+.ql-picker-label {
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+}
+
+.ql-picker-options {
+  z-index: 9999 !important;
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+
+.ql-picker-item {
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+
+
+.ql-toolbar.ql-snow {
+  z-index: 10;
+  position: relative;
+}
+
+.ql-container.ql-snow {
+  z-index: 1;
+}
+
+.ql-font-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+.ql-font-montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+.ql-font-courier {
+  font-family: 'Courier Prime', monospace;
+}
+.ql-font-sans-serif {
+  font-family: sans-serif;
+}
+
+.ql-editor h1,
+.ql-editor h2,
+.ql-editor h3,
+.ql-editor h4,
+.ql-editor h5,
+.ql-editor h6 {
+  text-align: left !important;
+}
+
+.ql-editor h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+.ql-editor h2 {
+  font-size: 1.5em;
+  margin: 0.75em 0;
+}
+
+
+
+
+
