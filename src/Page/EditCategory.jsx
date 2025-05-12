@@ -55,7 +55,7 @@ function EditCategory() {
 
   return (
     <section className="App">
-      <h2>Edit Category</h2>
+      <h2 style={{textAlign:"center"}}>Edit Category</h2>
       <form onSubmit={handleSubmit}>
         <label>
           <p>Title</p>

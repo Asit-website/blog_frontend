@@ -1,4 +1,6 @@
-body, html, .App {
+body,
+html,
+.App {
   overflow: visible !important;
 }
 
@@ -13,9 +15,8 @@ body, html, .App {
   font-weight: 600;
   font-size: 32px;
   margin: 0 auto;
-  text-align: center;
+  /* text-align: center; */
 }
-
 
 .App form {
   display: flex;
@@ -35,7 +36,6 @@ body, html, .App {
   font: Inter;
   font-weight: 600;
   font-size: 22px;
-
 }
 
 .App form label input,
@@ -49,14 +49,11 @@ select {
   width: 100%;
   height: 44px;
   padding: 0px 10px;
-
-
 }
 
 .creabun {
   border-radius: 10px;
   height: 44px;
-
 }
 
 .blogs-container {
@@ -139,81 +136,50 @@ button:hover {
 }
 
 .optons {
-  color: black ;
+  color: black;
 }
 
-/* Tidy dropdown appearance */
-.ql-toolbar .ql-picker {
-  margin-right: 8px;
-}
-
-.ql-picker-label {
-  padding: 4px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-}
-
-.ql-picker-options {
-  z-index: 9999 !important;
-  background: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-
-.ql-picker-item {
-  padding: 6px 12px;
-  cursor: pointer;
-}
-
-
-
-.ql-toolbar.ql-snow {
-  z-index: 10;
-  position: relative;
-}
-
-.ql-container.ql-snow {
-  z-index: 1;
-}
-
-.ql-font-roboto {
-  font-family: 'Roboto', sans-serif;
-}
-.ql-font-montserrat {
-  font-family: 'Montserrat', sans-serif;
-}
-.ql-font-courier {
-  font-family: 'Courier Prime', monospace;
-}
-.ql-font-sans-serif {
+.preview-content {
   font-family: sans-serif;
+  line-height: 1.2;
 }
 
-.ql-editor h1,
-.ql-editor h2,
-.ql-editor h3,
-.ql-editor h4,
-.ql-editor h5,
-.ql-editor h6 {
-  text-align: left !important;
+.preview-content strong,
+.preview-content b {
+  font-weight: bold;
 }
 
-.ql-editor h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
+strong, b {
+  font-weight: bold;
 }
 
-.ql-editor h2 {
-  font-size: 1.5em;
-  margin: 0.75em 0;
+em, i {
+  font-style: italic;
 }
 
+ol, ul {
+  padding-left: 1.5rem;
+}
 
+ol {
+  list-style-type: decimal;
+}
 
+ul {
+  list-style-type: disc;
+}
 
+.preview-content h1,
+.preview-content h2,
+.preview-content h3,
+.preview-content h4,
+.preview-content h5,
+.preview-content h6 {
+  font-weight: bold;
+  margin: 1em 0 0.5em;
+  line-height: 1.2;
+}
 
+.preview-content ol[type="a"] {
+  list-style-type: lower-alpha !important;
+}

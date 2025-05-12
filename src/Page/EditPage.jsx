@@ -1,18 +1,33 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import { Editor } from "@tinymce/tinymce-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// const baseurl = "http://localhost:4000";
-const baseurl = `https://backblog.kusheldigi.com`
+const baseurl = "http://localhost:4000";
+// const baseurl = `https://backblog.kusheldigi.com`;
 
 function EditPage() {
+  const editorRef = useRef(null);
+
+  const handlePastePreprocess = (plugin, args) => {
+    let content = args.content;
+
+    // Clean up paragraphs inside list items
+    content = content.replace(/<li>\s*<p>(.*?)<\/p>\s*<\/li>/gi, "<li>$1</li>");
+
+    // Remove empty paragraphs
+    content = content.replace(/<p>&nbsp;<\/p>/gi, "");
+
+    // Ensure proper list structure
+    content = content.replace(/<\/li>\s*<li>/g, "</li><li>");
+
+    args.content = content;
+  };
+
   const { blogId } = useParams();
   const navigate = useNavigate();
-  const quillRef = useRef(null);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -29,41 +44,7 @@ function EditPage() {
   const [categories, setCategories] = useState([]);
   const [selectedDomains, setSelectedDomains] = useState([]);
   const [content, setContent] = useState("");
-
-  const quillModules = {
-    toolbar: [
-      [{ header: [1, 2, 3, 4, 5, false] }],
-      [{ font: [] }],
-      [{ size: ["small", false, "large", "huge"] }],
-      ["bold", "italic", "underline", "strike"],
-      [{ color: [] }, { background: [] }],
-      [{ align: [] }],
-      [{ list: "ordered" }, { list: "bullet" }],
-      ["blockquote", "code-block"],
-      ["link", "image", "video"],
-      ["clean"],
-    ],
-  };
-
-  const quillFormats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "color",
-    "background",
-    "align",
-    "list",
-    "bullet",
-    "blockquote",
-    "code-block",
-    "link",
-    "image",
-    "video",
-  ];
+  const [showPreview, setShowPreview] = useState(false);
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -175,7 +156,7 @@ function EditPage() {
         hideProgressBar={false}
       />
       <section className="App">
-        <h2>EDIT BLOG</h2>
+        <h2 style={{textAlign:"center"}}>EDIT BLOG</h2>
         <form onSubmit={handleSubmit}>
           <label>
             <p>Title</p>
@@ -228,15 +209,151 @@ function EditPage() {
           </label>
 
           <label>
-            <p>Description</p>
-            <ReactQuill
-              ref={quillRef}
-              value={content}
-              onChange={setContent}
-              modules={quillModules}
-              formats={quillFormats}
-            />
-          </label>
+                      <p>Content</p>
+                      <Editor
+                        apiKey="fvsrtf5hy74pz37d9dcn8m8vzc0v4t8slri6829oiyw5i7cz"
+                        onInit={(evt, editor) => (editorRef.current = editor)}
+                        initialValue=""
+                        value={content}
+                        onEditorChange={(newContent) => setContent(newContent)}
+                        init={{
+                          height: 400,
+                          menubar: true, // Enable menu bar for additional options
+                          plugins: [
+                            "advlist",
+                            "autolink",
+                            "lists",
+                            "link",
+                            "image",
+                            "charmap",
+                            "preview",
+                            "anchor",
+                            "searchreplace",
+                            "visualblocks",
+                            "code", // Enables source code view
+                            "fullscreen", // Enables full screen mode
+                            "insertdatetime",
+                            "media",
+                            "table",
+                            "help",
+                            "wordcount",
+                            "codesample", // Adds code highlighting option
+                          ],
+                          toolbar: [
+                            "undo redo | formatselect | " +
+                              "bold italic underline forecolor backcolor | alignleft aligncenter " +
+                              "alignright alignjustify | bullist numlist outdent indent | " +
+                              "styleselect removeformat",
+          
+                            // Add a second toolbar row with utility buttons
+                            "preview code fullscreen | help",
+                          ],
+                          statusbar: true,
+                          resize: true,
+                          paste_preprocess: handlePastePreprocess,
+                          paste_as_text: false,
+                          paste_enable_default_filters: true,
+                          paste_word_valid_elements:
+                            "b,strong,i,em,h1,h2,h3,h4,h5,h6,p,ol,ul,li",
+                          paste_retain_style_properties: "none",
+                          forced_root_block: "p",
+                          force_br_newlines: false,
+                          force_p_newlines: true,
+                          style_formats: [
+                            {
+                              title: "Roman Number List (I, II, III)",
+                              selector: "ol",
+                              attributes: { type: "I" },
+                            },
+                            {
+                              title: "Lowercase Roman (i, ii, iii)",
+                              selector: "ol",
+                              attributes: { type: "i" },
+                            },
+                            {
+                              title: "Upper Alpha (A, B, C)",
+                              selector: "ol",
+                              attributes: { type: "A" },
+                            },
+                            {
+                              title: "Lower Alpha (a, b, c)",
+                              selector: "ol",
+                              attributes: { type: "a" },
+                            },
+                          ],
+                          // Configure preview options
+                          plugin_preview_width: "800",
+                          plugin_preview_height: "600",
+                          plugin_preview_styles: true,
+          
+                          // Configure fullscreen plugin
+                          fullscreen_native: true, // Use native fullscreen if available
+                          formats: {
+                            // Add custom formats for different list types
+                            lowercaseAlpha: { selector: 'ol', attributes: { type: 'a' } },
+                            uppercaseAlpha: { selector: 'ol', attributes: { type: 'A' } },
+                            lowercaseRoman: { selector: 'ol', attributes: { type: 'i' } },
+                            uppercaseRoman: { selector: 'ol', attributes: { type: 'I' } }
+                          },
+                        
+                          style_formats: [
+                            {
+                              title: 'Ordered List Types',
+                              items: [
+                                { title: 'Numeric (1, 2, 3)', selector: 'ol', format: 'removeformat' },
+                                { title: 'Lowercase Letters (a, b, c)', selector: 'ol', format: 'lowercaseAlpha' },
+                                { title: 'Uppercase Letters (A, B, C)', selector: 'ol', format: 'uppercaseAlpha' },
+                                { title: 'Lowercase Roman (i, ii, iii)', selector: 'ol', format: 'lowercaseRoman' },
+                                { title: 'Uppercase Roman (I, II, III)', selector: 'ol', format: 'uppercaseRoman' }
+                              ]
+                            }
+                          ],
+          
+                          // Add CSS styles to both editor and preview
+                          content_style: `
+                            body { 
+                              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                              line-height: 1.5;
+                              padding: 10px; 
+                            }
+                            ol[type="a"] { list-style-type: lower-alpha !important; }
+                            ol[type="A"] { list-style-type: upper-alpha !important; }
+                            ol[type="i"] { list-style-type: lower-roman !important; }
+                            ol[type="I"] { list-style-type: upper-roman !important; }
+                            ul { list-style-type: disc !important; }
+                            p { margin: 0.5em 0; }
+                            h1, h2, h3, h4, h5, h6 { margin: 1em 0 0.5em; }
+                          `,
+          
+                          // Prevent HTML cleaning from removing list type attributes
+                          valid_elements: "*[*]",
+                          extended_valid_elements: 'ol[type|start|class|style],ul[type|class|style],li[class|style]',
+          
+                          // Better source code formatting
+                          code_format: {
+                            indentation: "  ",
+                          },
+          
+                          // Enable custom shortcuts
+                          shortcuts: {
+                            "Meta+E,Ctrl+E": "mceCodeEditor", // Shortcut for source code view
+                            "Meta+F,Ctrl+F": "mceFullScreen", // Shortcut for fullscreen
+                            "Meta+P,Ctrl+P": "mcePreview", // Shortcut for preview
+                          },
+                          setup: (editor) => {
+                            editor.on('PastePostProcess', (e) => {
+                              const content = e.node;
+                              
+                              // Clean up list items with paragraphs
+                              content.querySelectorAll('li > p').forEach(p => {
+                                const li = p.parentNode;
+                                li.innerHTML = p.innerHTML;
+                              });
+                            });
+                          }
+                        }}
+                      />
+                    </label>
 
           <div
             style={{
