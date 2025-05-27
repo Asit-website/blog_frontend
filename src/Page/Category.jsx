@@ -5,9 +5,6 @@ import { useNavigate } from "react-router-dom";
 function Category() {
   const [blogs, setBlogs] = useState([]);
   const navigate = useNavigate();
-  // const baseurl = "http://localhost:4000"
-  // const baseurl = "https://blog-back-7jx6.onrender.com"
-  const baseurl = `https://backblog.kusheldigi.com`;
 
   // const [refreshFlag,setRefreshFlag] = useState(false);
 
@@ -18,7 +15,7 @@ function Category() {
   const fetchBlogs = async () => {
     try {
       const response = await axios.get(
-        `${baseurl}/api/v1/auth/categories`
+        "https://backblog.kusheldigi.com/api/v1/auth/categories"
       );
       setBlogs(response?.data?.categories);
     } catch (error) {
@@ -29,7 +26,7 @@ function Category() {
   const deleteBlog = async (categoryId) => {
     try {
       const response = await axios.delete(
-        `${baseurl}/api/v1/auth/categories/${categoryId}`
+        `https://backblog.kusheldigi.com/api/v1/auth/categories/${categoryId}`
       );
 
       if (response.status === 200) {
@@ -41,7 +38,8 @@ function Category() {
     } catch (error) {
       if (error.response) {
         alert(
-          `Server responded with ${error.response.status}: ${error.response.data.message || "Error"
+          `Server responded with ${error.response.status}: ${
+            error.response.data.message || "Error"
           }`
         );
       } else if (error.request) {

@@ -38,7 +38,7 @@ function CreateCategory() {
     <>
       <ToastContainer />
       <section className="App">
-        <h2>CREATE Category</h2>
+        <h2 style={{textAlign:'center'}}>CREATE Category</h2>
         <form onSubmit={handleSubmit}>
           <label>
             <p>Title</p>

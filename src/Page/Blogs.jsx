@@ -11,18 +11,14 @@ function Blogs() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // const baseurl = "http://localhost:4000"
-  // const baseurl = "https://blog-back-7jx6.onrender.com"
-  const baseurl = `https://backblog.kusheldigi.com`;
-
   useEffect(() => {
     fetchBlogs();
   }, []);
 
   const fetchBlogs = async () => {
     try {
-      const response = await axios.get(`${baseurl}/api/v1/auth/getAllBlog`);
-      const ans = response.data.blogs
+      const response = await axios.get('https://backblog.kusheldigi.com/api/v1/auth/getAllBlog');
+      const ans = response.data.blogs.reverse();
       setBlogs(ans);
       setFilteredBlogs(ans);
     } catch (error) {
@@ -50,7 +46,7 @@ function Blogs() {
 
   const deleteBlog = async (blogId) => {
     try {
-      const response = await axios.post(`${baseurl}/api/v1/auth/deleteBlog`, { blogId });
+      const response = await axios.post('https://backblog.kusheldigi.com/api/v1/auth/deleteBlog', { blogId });
       if (response.data.status) {
         toast.success("Blog deleted successfully");
         setBlogs(blogs.filter((blog) => blog._id !== blogId));
@@ -80,7 +76,7 @@ function Blogs() {
 
   return (
     <div>
-      <ToastContainer />
+      <ToastContainer/>
       {/* <button onClick={()=>editAll()}>All</button> */}
       <div className='search-container'>
         <input
